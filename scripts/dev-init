@@ -1,0 +1,16 @@
+#!/usr/bin/env fish
+set project_name $argv[1]
+
+if test -z "$project_name"
+    echo "Usage: dev-init <project-name>"
+    exit 1
+end
+
+mkdir -p $project_name
+cd $project_name
+
+echo "{ pkgs, ... }: { devenv.shells.default = { packages = with pkgs; [ ]; };" > devenv.nix
+echo "use flake .#devenv" > .envrc
+
+direnv allow
+echo "Project $project_name initialized with devenv."

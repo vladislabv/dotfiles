@@ -1,0 +1,30 @@
+theme = "catppuccin_mocha"
+
+[editor]
+line-number = "relative"
+mouse = false
+lsp.display-messages = true
+indent-guides.render = true
+file-picker.hidden = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "file-modification-indicator"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+
+[editor.file-picker]
+hidden = false
+
+[keys.normal]
+"space.space" = "file_picker"
+"space.b" = "buffer_picker"
+"space.s" = "symbol_picker"
+"space.S" = "workspace_symbol_picker"
+"space.d" = "diagnostics_picker"
+"space.w" = ":w"
+"space.q" = ":q"
+"space.c" = "toggle_comments"
