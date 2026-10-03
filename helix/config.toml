@@ -5,7 +5,9 @@ line-number = "relative"
 mouse = false
 lsp.display-messages = true
 indent-guides.render = true
-file-picker.hidden = false
+
+[editor.file-picker]
+hidden = false
 
 [editor.cursor-shape]
 insert = "bar"
@@ -15,9 +17,6 @@ select = "underline"
 [editor.statusline]
 left = ["mode", "spinner", "file-name", "file-modification-indicator"]
 right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
-
-[editor.file-picker]
-hidden = false
 
 [keys.normal]
 "space.space" = "file_picker"

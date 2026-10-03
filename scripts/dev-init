@@ -1,16 +1,43 @@
 #!/usr/bin/env fish
 set project_name $argv[1]
+set template $argv[2]
 
 if test -z "$project_name"
-    echo "Usage: dev-init <project-name>"
+    echo "Usage: dev-init <project-name> [python|go|rust|web]"
+    echo ""
+    echo "Templates:"
+    echo "  python  - uv + ruff + pyright"
+    echo "  go      - gopls + delve"
+    echo "  rust    - rust-analyzer + cargo-edit + cargo-watch"
+    echo "  web     - node + pnpm + ts-language-server + tailwind"
+    echo ""
+    echo "  (none)  - empty shell"
     exit 1
 end
 
-mkdir -p $project_name
-cd $project_name
+if test -z "$template"
+    set template "default"
+end
 
-echo "{ pkgs, ... }: { devenv.shells.default = { packages = with pkgs; [ ]; };" > devenv.nix
-echo "use flake .#devenv" > .envrc
+set template_dir "$HOME/.dotfiles/devenv-templates/$template"
+
+if test "$template" = "default"
+    mkdir -p $project_name
+    cd $project_name
+    echo "{ pkgs, ... }: {
+  packages = with pkgs; [ ];
+}" > devenv.nix
+else if not test -d $template_dir
+    echo "Unknown template: $template"
+    echo "Available: python go rust web"
+    exit 1
+else
+    mkdir -p $project_name
+    cd $project_name
+    cp $template_dir/devenv.nix ./devenv.nix
+end
+
+echo 'eval "$(devenv print-dev-env)"' > .envrc
 
 direnv allow
-echo "Project $project_name initialized with devenv."
+echo "Project $project_name initialized with '$template' template."

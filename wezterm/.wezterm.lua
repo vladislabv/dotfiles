@@ -6,12 +6,13 @@ if wezterm.config_builder then
 end
 
 config.default_domain = 'WSL:NixOS'
+config.default_cwd = 'wsl:///NixOS/home/vstasenko'
 
 config.color_scheme = 'Catppuccin Mocha'
 config.font = wezterm.font('JetBrains Mono')
 config.font_size = 11.0
 config.window_background_opacity = 0.95
-config.window_decorations = 'RESIZE'
+config.window_decorations = 'TITLE | RESIZE'
 config.hide_tab_bar_if_only_one_tab = true
 config.scrollback_lines = 10000
 
@@ -24,8 +25,8 @@ config.keys = {
   { key = 'l',        mods = 'CTRL|SHIFT',      action = wezterm.action.ActivatePaneDirection 'Right' },
   { key = 'k',        mods = 'CTRL|SHIFT',      action = wezterm.action.ActivatePaneDirection 'Up'    },
   { key = 'j',        mods = 'CTRL|SHIFT',      action = wezterm.action.ActivatePaneDirection 'Down'  },
-  { key = 'PageUp',   mods = 'SHIFT',           action = wezterm.action.ScrollByPage    -1 },
-  { key = 'PageDown', mods = 'SHIFT',           action = wezterm.action.ScrollByPage     1 },
+  { key = 'PageUp',   mods = 'SHIFT',           action = wezterm.action.ScrollByPage(-1) },
+  { key = 'PageDown', mods = 'SHIFT',           action = wezterm.action.ScrollByPage(1) },
 }
 
 return config
